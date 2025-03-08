@@ -392,27 +392,37 @@ export const LoggedIn: Story = {
     await userEvent.click(loginButton);
   },
 };
-
-// 자동화된 인터랙션 테스트
-export const LoggedInWithTest: Story = {
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);
-    
-    // 단계별 테스트 실행
-    await step('로그인 버튼 클릭', async () => {
-      const loginButton = canvas.getByRole('button', { name: /Log in/i });
-      await userEvent.click(loginButton);
-    });
-    
-    await step('로그인 상태 확인', async () => {
-      const logoutButton = canvas.getByRole('button', { name: /Log out/i });
-      await expect(logoutButton).toBeInTheDocument();
-    });
-  },
-};
 ```
 
-### 인터랙션 테스트 (play 함수)
+## GitHub Pages를 통한 Storybook 배포
+
+프로젝트의 Storybook은 GitHub Pages를 통해 자동으로 배포되어 팀원들이 언제든지 최신 컴포넌트를 확인할 수 있습니다.
+
+### 배포 URL 및 접근 방법
+
+현재 프로젝트의 Storybook은 다음 URL에서 확인할 수 있습니다:
+- **배포 URL**: [https://urban-guacamole-2n4qprz.pages.github.io/](https://urban-guacamole-2n4qprz.pages.github.io/)
+
+### 배포 프로세스
+
+- **자동 배포**: main 브랜치에 변경사항이 푸시되면 GitHub Actions를 통해 자동으로 배포됩니다.
+- **배포 확인**: GitHub 저장소의 "Actions" 탭과 "Environments" 섹션에서 배포 상태를 확인할 수 있습니다.
+
+### 개발자 워크플로우
+
+1. **컴포넌트 개발**: 로컬에서 컴포넌트 개발 및 스토리 작성
+2. **로컬 테스트**: `npm run storybook`으로 로컬에서 테스트
+3. **코드 푸시**: 변경사항을 main 브랜치에 푸시
+4. **자동 배포**: GitHub Actions가 자동으로 Storybook을 빌드하고 배포
+5. **배포 확인**: 배포된 URL에서 컴포넌트 확인 및 공유
+
+### 협업 팁
+
+- 컴포넌트 리뷰가 필요할 때 배포된 Storybook URL을 공유하세요.
+- Figma 디자인과 함께 Storybook 링크를 제공하면 디자이너와의 협업이 원활해집니다.
+- 컴포넌트 변경 시 항상 관련 스토리를 업데이트하여 문서화를 최신 상태로 유지하세요.
+
+## 인터랙션 테스트 (play 함수)
 
 Storybook 8.6에서는 `play` 함수를 사용하여 사용자 인터랙션을 시뮬레이션하고 테스트할 수 있습니다. 이 기능은 컴포넌트의 동작을 자동화된 방식으로 검증하는 데 유용합니다.
 
@@ -433,6 +443,24 @@ play: async ({ canvasElement, step }) => {
   });
 }
 ```
+
+// 자동화된 인터랙션 테스트 예시
+export const LoggedInWithTest: Story = {
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    
+    // 단계별 테스트 실행
+    await step('로그인 버튼 클릭', async () => {
+      const loginButton = canvas.getByRole('button', { name: /Log in/i });
+      await userEvent.click(loginButton);
+    });
+    
+    await step('로그인 상태 확인', async () => {
+      const logoutButton = canvas.getByRole('button', { name: /Log out/i });
+      await expect(logoutButton).toBeInTheDocument();
+    });
+  },
+};
 
 ## 다크 모드 지원
 
