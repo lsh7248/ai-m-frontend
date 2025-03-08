@@ -44,7 +44,7 @@ const meta = {
   parameters: {
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/file/example/button-component',
+      url: 'https://www.figma.com/design/XDJtc47gxopmg3ve3b2CxY/Button-Components-(Community)?node-id=201-4823&t=A0QBqaCqz0bx5tXA-4',
     },
   },
 } satisfies Meta<typeof Button>;
