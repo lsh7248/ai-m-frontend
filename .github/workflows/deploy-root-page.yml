@@ -1,0 +1,44 @@
+name: Deploy Root Page to GitHub Pages
+
+on:
+  push:
+    branches:
+      - "main"  # main 브랜치에 푸시될 때 실행
+    paths:
+      - 'index.html'  # index.html이 변경될 때만 실행
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy-root:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Create root directory
+        run: |
+          mkdir -p root
+          cp index.html root/
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'root'
+          name: root
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: root
+          path: '/' 
