@@ -1,0 +1,4 @@
+{
+  "tailwindCSS.experimental.configFile": "./src/style.css",
+  "css.validate": false
+} 
