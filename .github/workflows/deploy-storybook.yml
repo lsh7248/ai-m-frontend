@@ -20,9 +20,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+      
     - id: build-publish
       uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
       with:
         path: storybook-static  # Storybook 빌드 폴더 (프로젝트에 맞게 수정)
-        install_command: npm ci  # 또는 yarn install
+        install_command: npm install  # npm ci에서 npm install로 변경
         build_command: npm run build-storybook  # 또는 yarn build-storybook 
