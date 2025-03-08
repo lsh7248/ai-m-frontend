@@ -2,6 +2,12 @@
 
 Vue 3, TypeScript, Vite 기반의 모던 웹 애플리케이션 프론트엔드 프로젝트입니다. 이 프로젝트는 Tailwind CSS v4와 Storybook을 활용한 컴포넌트 기반 개발 방법론을 채택하고 있습니다.
 
+## Contributors
+
+- **프로젝트 총괄 및 개발PM**: AI운용혁신팀 이성현
+- **UI/UX 기획 총괄 및 웹 퍼블리싱, Frontend개발**: AI운용혁신팀 박주연
+- **Frontend 개발 및 CI/CD 인프라 개발**: AI운용혁신팀 신민준
+
 ## 기술 스택
 
 - **프레임워크**: Vue 3 (Composition API)
@@ -10,6 +16,13 @@ Vue 3, TypeScript, Vite 기반의 모던 웹 애플리케이션 프론트엔드 
 - **스타일링**: Tailwind CSS v4 (CSS-first 접근법)
 - **컴포넌트 문서화**: Storybook 8.6.4
 - **UI 라이브러리**: DaisyUI
+
+## 배포된 Storybook
+
+컴포넌트 라이브러리는 GitHub Pages를 통해 배포되어 있습니다:
+- **Storybook URL**: [https://urban-guacamole-2n4qprz.pages.github.io/](https://urban-guacamole-2n4qprz.pages.github.io/)
+
+이 Storybook은 main 브랜치에 변경사항이 푸시될 때마다 GitHub Actions를 통해 자동으로 빌드 및 배포됩니다.
 
 ## 시작하기
 
@@ -44,6 +57,9 @@ npm run storybook
 ```bash
 # 프로덕션용 빌드
 npm run build
+
+# Storybook 빌드
+npm run build-storybook
 ```
 
 ## 프로젝트 구조
@@ -84,6 +100,16 @@ src/
 3. **Composition API**: Vue 3의 Composition API와 `<script setup>` 구문을 사용합니다.
 4. **CSS-first Tailwind**: Tailwind CSS v4의 CSS-first 접근법을 활용합니다.
 5. **스토리북 문서화**: 모든 컴포넌트는 Storybook을 통해 문서화합니다.
+
+## CI/CD
+
+### Storybook 자동 배포
+
+이 프로젝트는 GitHub Actions를 사용하여 Storybook을 GitHub Pages에 자동으로 배포합니다:
+
+- **트리거**: main 브랜치에 푸시가 발생할 때
+- **워크플로우 파일**: `.github/workflows/deploy-storybook.yml`
+- **배포 URL**: [https://urban-guacamole-2n4qprz.pages.github.io/](https://urban-guacamole-2n4qprz.pages.github.io/)
 
 ## 문서
 
