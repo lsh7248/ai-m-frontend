@@ -3,7 +3,7 @@ name: Deploy Root Page to GitHub Pages
 on:
   push:
     branches:
-      - "dev"  # dev 브랜치에 푸시될 때 실행 (main에서 dev로 변경)
+      - "main"  # main 브랜치에 푸시될 때 실행
     paths:
       - 'index.html'  # index.html이 변경될 때만 실행
 
@@ -15,7 +15,7 @@ permissions:
 jobs:
   deploy-root:
     environment:
-      name: github-pages-root
+      name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
