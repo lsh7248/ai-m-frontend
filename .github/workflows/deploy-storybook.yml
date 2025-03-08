@@ -1,9 +1,10 @@
 name: Deploy Storybook to GitHub Pages
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
-      - "dev"  # dev 브랜치에 푸시될 때 실행 (main에서 dev로 변경)
+      - "dev"  # dev 브랜치로 PR이 병합될 때 실행
 
 permissions:
   contents: read
@@ -12,6 +13,8 @@ permissions:
 
 jobs:
   deploy:
+    # PR이 병합된 경우에만 실행
+    if: github.event.pull_request.merged == true
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}/storybook/
