@@ -177,19 +177,15 @@ Tailwind CSS v4는 이전 버전과 달리 설정 방식이 크게 변경되었�
 
 ### 1. Tailwind CSS v4 설치 및 기본 설정
 
-먼저 프로젝트에 Tailwind CSS v4와 Vite 플러그인을 설치합니다:
+먼저 프로젝트에 Tailwind CSS v4를 설치합니다:
 
 ```bash
-npm install -D tailwindcss @tailwindcss/vite
+npm install -D tailwindcss
 ```
 
 ### 2. Storybook에 Tailwind CSS 적용하기
 
-Storybook에서 Tailwind CSS를 사용하기 위해서는 두 가지 설정이 필요합니다:
-
-#### 2.1. 스타일 파일 가져오기
-
-`.storybook/preview.ts` 파일에 Tailwind CSS 스타일 파일을 가져옵니다:
+Storybook에서 Tailwind CSS를 사용하기 위해서는 `.storybook/preview.ts` 파일에 Tailwind CSS 스타일 파일을 가져오기만 하면 됩니다:
 
 ```typescript
 // .storybook/preview.ts
@@ -210,40 +206,7 @@ const preview: Preview = {
 export default preview;
 ```
 
-#### 2.2. Tailwind CSS v4 Vite 플러그인 설정
-
-`.storybook/main.ts` 파일에 Tailwind CSS v4의 Vite 플러그인을 추가합니다:
-
-```typescript
-// .storybook/main.ts
-import type { StorybookConfig } from '@storybook/vue3-vite';
-import tailwindcss from '@tailwindcss/vite';
-
-const config: StorybookConfig = {
-  "stories": [
-    "../src/**/*.mdx",
-    "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
-  ],
-  "addons": [
-    "@storybook/addon-essentials",
-    "@storybook/addon-onboarding",
-    '@storybook/addon-designs',
-    // 기타 애드온...
-  ],
-  "framework": {
-    "name": "@storybook/vue3-vite",
-    "options": {}
-  },
-  "viteFinal": async (config) => {
-    // Tailwind CSS v4 Vite 플러그인 추가
-    config.plugins = config.plugins || [];
-    config.plugins.push(tailwindcss());
-    
-    return config;
-  }
-};
-export default config;
-```
+> **중요**: `.storybook/main.ts` 파일에 `viteFinal` 설정이나 `@tailwindcss/vite` 임포트를 추가하지 마세요. 이는 에러를 발생시킬 수 있습니다.
 
 ### 3. 테마 전환 기능 추가 (선택 사항)
 
@@ -315,9 +278,9 @@ Tailwind CSS v4에서는 CSS-first 접근 방식을 사용하여 테마를 설�
 Storybook에서 Tailwind CSS 스타일이 적용되지 않는 경우 다음을 확인하세요:
 
 1. `preview.ts` 파일에 스타일 파일이 올바르게 가져와졌는지 확인
-2. `main.ts` 파일에 Tailwind CSS Vite 플러그인이 올바르게 설정되었는지 확인
-3. Storybook 서버를 재시작하여 변경 사항이 적용되었는지 확인
-4. 브라우저 개발자 도구에서 CSS 변수가 제대로 정의되었는지 확인
+2. Storybook 서버를 재시작하여 변경 사항이 적용되었는지 확인
+3. 브라우저 개발자 도구에서 CSS 변수가 제대로 정의되었는지 확인
+4. `@tailwindcss/vite` 플러그인을 사용하지 않도록 주의하세요 - 이는 Storybook과 호환성 문제를 일으킬 수 있습니다
 
 ## 복잡한 컴포넌트 스토리 작성
 
