@@ -91,7 +91,7 @@ src/
 
 - [Figma to Vue 개발 가이드](./docs/figma-to-code.md)
 - [TypeScript 개발 가이드](./docs/typescript-code-guide.md)
-- [Tailwind CSS v4 가이드](./docs/tailwind-v4-guide.md)
+- [Tailwind CSS v4 가이드](./docs/tailwind-css-v4-guide.md)
 - [Storybook 가이드](./docs/storybook-guide.md)
 
 ## 컨벤션
