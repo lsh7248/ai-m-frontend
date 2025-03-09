@@ -28,7 +28,14 @@ export default [
   ...tseslint.configs.recommended,
   {
     rules: {
-      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
       '@typescript-eslint/no-explicit-any': 'warn',
     },
   },
@@ -54,6 +61,10 @@ export default [
           semi: true,
           tabWidth: 2,
           trailingComma: 'all',
+          printWidth: 100,
+          bracketSpacing: true,
+          endOfLine: 'auto',
+          arrowParens: 'always',
         },
       ],
       'vue/multi-word-component-names': 'off',
@@ -98,6 +109,10 @@ export default [
           semi: true,
           tabWidth: 2,
           trailingComma: 'all',
+          printWidth: 100,
+          bracketSpacing: true,
+          endOfLine: 'auto',
+          arrowParens: 'always',
         },
       ],
     },

@@ -202,6 +202,10 @@ export default [
           semi: true,
           tabWidth: 2,
           trailingComma: 'all',
+          printWidth: 100,
+          bracketSpacing: true,
+          endOfLine: 'auto',
+          arrowParens: 'always',
         },
       ],
       'vue/multi-word-component-names': 'off',
@@ -230,6 +234,7 @@ export default [
       '.cursor',
       '.vscode',
       'storybook-static',
+      '.github',
     ],
   },
   // prettier
@@ -245,6 +250,10 @@ export default [
           semi: true,
           tabWidth: 2,
           trailingComma: 'all',
+          printWidth: 100,
+          bracketSpacing: true,
+          endOfLine: 'auto',
+          arrowParens: 'always',
         },
       ],
     },
@@ -263,7 +272,10 @@ export default [
   "trailingComma": "all",
   "printWidth": 100,
   "bracketSpacing": true,
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "arrowParens": "always",
+  "parser": "typescript",
+  "singleAttributePerLine": false
 }
 ```
 
@@ -306,6 +318,8 @@ dist
 
 ```json
 {
+  "tailwindCSS.experimental.configFile": "./src/style.css",
+  "css.validate": false,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
@@ -321,7 +335,10 @@ dist
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
-  "eslint.experimental.useFlatConfig": true
+  "eslint.useFlatConfig": true,
+  "prettier.requireConfig": true,
+  "editor.formatOnSaveMode": "file",
+  "prettier.useEditorConfig": false
 }
 ```
 
