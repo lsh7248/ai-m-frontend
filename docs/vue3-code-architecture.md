@@ -10,50 +10,71 @@
 ## 디렉토리 구조
 
 ```
-src/
-├── assets/               # 정적 리소스 (이미지, 폰트 등)
-├── components/           # 재사용 가능한 컴포넌트
-│   ├── common/           # 공통 컴포넌트 (버튼, 입력 등)
-│   ├── layouts/          # 레이아웃 컴포넌트
-│   └── features/         # 기능별 컴포넌트
+.
+├── .github/               # GitHub Actions 워크플로우 설정
+├── .storybook/            # Storybook 설정 파일
+├── .vscode/               # VSCode 설정 파일
+├── dist/                  # 빌드 출력 디렉토리
+├── docs/                  # 문서 파일
+├── public/                # 정적 자산 (빌드 시 그대로 복사됨)
+├── src/
+│   ├── assets/            # 정적 리소스 (이미지, 폰트 등)
+│   ├── components/        # 재사용 가능한 컴포넌트
+│   │   ├── common/        # 공통 컴포넌트 (버튼, 입력 등)
+│   │   ├── layouts/       # 레이아웃 컴포넌트
+│   │   └── features/      # 기능별 컴포넌트
+│   │
+│   ├── composables/       # 재사용 가능한 로직 (Composition 함수)
+│   │   ├── useAuth.ts
+│   │   ├── useForm.ts
+│   │   └── ...
+│   │
+│   ├── router/            # Vue Router 설정
+│   │   ├── index.ts       # 라우터 구성
+│   │   └── routes/        # 라우트 정의 파일들
+│   │
+│   ├── stores/            # Pinia 스토어
+│   │   ├── auth.ts
+│   │   ├── user.ts
+│   │   └── ...
+│   │
+│   ├── services/          # API 서비스
+│   │   ├── api.ts         # API 클라이언트 설정
+│   │   ├── auth.service.ts
+│   │   └── ...
+│   │
+│   ├── stories/           # Storybook 스토리 파일
+│   │   ├── common/        # 공통 컴포넌트 스토리
+│   │   ├── features/      # 기능별 컴포넌트 스토리
+│   │   └── ...
+│   │
+│   ├── types/             # 타입 정의
+│   │   ├── models/        # 데이터 모델 타입
+│   │   ├── api.ts         # API 관련 타입
+│   │   └── ...
+│   │
+│   ├── utils/             # 유틸리티 함수
+│   │   ├── format.ts
+│   │   ├── validation.ts
+│   │   └── ...
+│   │
+│   ├── views/             # 페이지 컴포넌트
+│   │   ├── Home.vue
+│   │   ├── Login.vue
+│   │   └── ...
+│   │
+│   ├── App.vue            # 루트 컴포넌트
+│   ├── main.ts            # 애플리케이션 진입점
+│   └── vite-env.d.ts      # Vite 환경 타입 선언
 │
-├── composables/          # 재사용 가능한 로직 (Composition 함수)
-│   ├── useAuth.ts
-│   ├── useForm.ts
-│   └── ...
-│
-├── router/               # Vue Router 설정
-│   ├── index.ts          # 라우터 구성
-│   └── routes/           # 라우트 정의 파일들
-│
-├── stores/               # Pinia 스토어
-│   ├── auth.ts
-│   ├── user.ts
-│   └── ...
-│
-├── services/             # API 서비스
-│   ├── api.ts            # API 클라이언트 설정
-│   ├── auth.service.ts
-│   └── ...
-│
-├── types/                # 타입 정의
-│   ├── models/           # 데이터 모델 타입
-│   ├── api.ts            # API 관련 타입
-│   └── ...
-│
-├── utils/                # 유틸리티 함수
-│   ├── format.ts
-│   ├── validation.ts
-│   └── ...
-│
-├── views/                # 페이지 컴포넌트
-│   ├── Home.vue
-│   ├── Login.vue
-│   └── ...
-│
-├── App.vue               # 루트 컴포넌트
-├── main.ts               # 애플리케이션 진입점
-└── vite-env.d.ts         # Vite 환경 타입 선언
+├── eslint.config.mjs      # ESLint 설정
+├── .prettierrc            # Prettier 설정
+├── .prettierignore        # Prettier 무시 파일 설정
+├── tsconfig.json          # TypeScript 설정
+├── tsconfig.app.json      # 앱 코드 TypeScript 설정
+├── tsconfig.node.json     # Node 환경 TypeScript 설정
+├── vite.config.ts         # Vite 설정
+└── package.json           # 프로젝트 의존성 및 스크립트
 ```
 
 ## 개발 환경 설정
@@ -116,91 +137,146 @@ export default defineConfig({
 
 ### 3. ESLint & Prettier 설정
 
-#### ESLint 설정
+#### ESLint 설정 (ESLint 9 Flat Config)
 
 ```bash
 # ESLint 관련 패키지 설치
-npm install -D eslint eslint-plugin-vue @typescript-eslint/parser @typescript-eslint/eslint-plugin @vue/eslint-config-typescript
+npm install -D eslint eslint-plugin-vue @typescript-eslint/parser typescript-eslint vue-eslint-parser @vue/eslint-config-typescript @vue/eslint-config-prettier eslint-plugin-prettier eslint-config-prettier prettier
 ```
 
 ```javascript
-// .eslintrc.js
-module.exports = {
-  root: true,
-  env: {
-    browser: true,
-    node: true,
-    es2021: true,
-  },
-  extends: [
-    'plugin:vue/vue3-recommended',
-    'eslint:recommended',
-    '@vue/typescript/recommended',
-  ],
-  parserOptions: {
-    ecmaVersion: 2021,
-    parser: '@typescript-eslint/parser',
-  },
-  rules: {
-    'vue/multi-word-component-names': 'off', // 컴포넌트 이름 다중 단어 규칙 비활성화
-    'vue/max-attributes-per-line': ['error', {
-      singleline: {
-        max: 3,
+// eslint.config.mjs
+import globals from 'globals';
+import pluginJs from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import pluginVue from 'eslint-plugin-vue';
+import prettier from 'eslint-plugin-prettier';
+import vueConfigTypescript from '@vue/eslint-config-typescript';
+import vueConfigPrettier from '@vue/eslint-config-prettier';
+
+/** @type {import('eslint').Linter.Config[]} */
+export default [
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
       },
-      multiline: {
-        max: 1,
-      },
-    }],
-    'vue/html-self-closing': ['error', {
-      html: {
-        void: 'always',
-        normal: 'always',
-        component: 'always',
-      },
-    }],
-    '@typescript-eslint/no-explicit-any': 'warn', // any 타입 경고
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    },
   },
-};
+  // js
+  pluginJs.configs.recommended,
+  {
+    rules: {
+      'no-unused-vars': 'off',
+      'no-undef': 'off',
+    },
+  },
+  // ts
+  ...tseslint.configs.recommended,
+  {
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
+    },
+  },
+  // vue
+  ...pluginVue.configs['flat/recommended'],
+  {
+    files: ['*.vue', '**/*.vue'],
+    languageOptions: {
+      parser: pluginVue.parser,
+      parserOptions: {
+        parser: tseslint.parser,
+      },
+    },
+  },
+  {
+    rules: {
+      ...vueConfigTypescript.rules,
+      ...vueConfigPrettier.rules,
+      'prettier/prettier': [
+        'warn',
+        {
+          singleQuote: true,
+          semi: true,
+          tabWidth: 2,
+          trailingComma: 'all',
+        },
+      ],
+      'vue/multi-word-component-names': 'off',
+      'vue/component-definition-name-casing': ['error', 'PascalCase'],
+      'vue/html-self-closing': [
+        'error',
+        {
+          html: {
+            void: 'always',
+            normal: 'always',
+            component: 'always',
+          },
+          svg: 'always',
+          math: 'always',
+        },
+      ],
+    },
+  },
+  {
+    ignores: [
+      'node_modules',
+      'dist',
+      '*.log',
+      '.git',
+      '.storybook-static',
+      '.cursor',
+      '.vscode',
+      'storybook-static',
+    ],
+  },
+  // prettier
+  {
+    plugins: {
+      prettier: prettier,
+    },
+    rules: {
+      'prettier/prettier': [
+        'warn',
+        {
+          singleQuote: true,
+          semi: true,
+          tabWidth: 2,
+          trailingComma: 'all',
+        },
+      ],
+    },
+  },
+];
 ```
 
 #### Prettier 설정
 
-```bash
-# Prettier 관련 패키지 설치
-npm install -D prettier eslint-config-prettier eslint-plugin-prettier
+```json
+// .prettierrc
+{
+  "singleQuote": true,
+  "semi": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "bracketSpacing": true,
+  "endOfLine": "auto"
+}
 ```
 
-```javascript
-// .prettierrc.js
-module.exports = {
-  semi: false, // 세미콜론 사용 안함
-  singleQuote: true, // 작은따옴표 사용
-  tabWidth: 2, // 탭 너비
-  trailingComma: 'none', // 끝에 쉼표 사용 안함
-  printWidth: 100, // 줄 길이
-  arrowParens: 'avoid', // 화살표 함수 괄호 생략 (x => x)
-  endOfLine: 'auto', // 줄바꿈 자동
-  vueIndentScriptAndStyle: true, // Vue 파일의 script와 style 블록 들여쓰기
-};
+`.prettierignore` 파일을 생성하여 특정 파일 및 디렉토리를 제외할 수 있습니다:
+
 ```
-
-ESLint 설정에 Prettier 통합:
-
-```javascript
-// .eslintrc.js
-module.exports = {
-  // ... 기존 설정 ...
-  extends: [
-    'plugin:vue/vue3-recommended',
-    'eslint:recommended',
-    '@vue/typescript/recommended',
-    'plugin:prettier/recommended', // Prettier 통합
-  ],
-  // ... 기존 설정 ...
-};
+node_modules
+dist
+*.log
+.git
+.storybook-static
+.cursor
+.vscode
 ```
 
 ### 4. VSCode 설정
@@ -213,7 +289,6 @@ module.exports = {
 {
   "recommendations": [
     "vue.volar", // Vue 3 + TypeScript 지원
-    "vue.vscode-typescript-vue-plugin", // Vue + TypeScript 통합
     "dbaeumer.vscode-eslint", // ESLint 지원
     "esbenp.prettier-vscode", // Prettier 지원
     "formulahendry.auto-close-tag", // HTML 태그 자동 닫기
@@ -232,15 +307,10 @@ module.exports = {
 ```json
 {
   "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "eslint.validate": [
-    "javascript",
-    "typescript",
-    "vue"
-  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -250,14 +320,8 @@ module.exports = {
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "volar.takeOverMode.enabled": true, // Volar의 Takeover 모드 활성화
-  "volar.inlayHints.eventArgumentInInlineHandlers": false,
-  "tailwindCSS.includeLanguages": {
-    "vue": "html",
-    "vue-html": "html"
-  },
-  "tailwindCSS.emmetCompletions": true
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
+  "eslint.experimental.useFlatConfig": true
 }
 ```
 
