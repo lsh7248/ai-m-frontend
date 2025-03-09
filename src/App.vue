@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue';
 </script>
 
 <template>
@@ -8,7 +8,7 @@ import HelloWorld from './components/HelloWorld.vue'
       <h1>AI-Meister Frontend Demo</h1>
       <p class="env-tag">개발 환경 (dev 브랜치)</p>
     </div>
-    
+
     <div class="logos">
       <a href="https://vite.dev" target="_blank">
         <img src="/vite.svg" class="logo" alt="Vite logo" />
@@ -17,9 +17,9 @@ import HelloWorld from './components/HelloWorld.vue'
         <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
       </a>
     </div>
-    
+
     <HelloWorld msg="AI-Meister Frontend 개발 데모 페이지" />
-    
+
     <div class="footer">
       <p>이 페이지는 GitHub Pages를 통해 자동으로 배포됩니다.</p>
       <p>마지막 업데이트: {{ new Date().toLocaleString() }}</p>
