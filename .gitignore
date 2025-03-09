@@ -55,3 +55,6 @@ coverage
 .cache
 
 *storybook.log
+
+# Cursor configuration
+.cursorrules
