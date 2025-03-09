@@ -4,9 +4,11 @@ Vue 3, TypeScript, Vite 기반의 모던 웹 애플리케이션 프론트엔드 
 
 ## Contributors
 
-- **프로젝트 총괄 및 개발PM**: AI운용혁신팀 이성현
-- **UI/UX 기획 총괄 및 웹 퍼블리싱, Frontend개발**: AI운용혁신팀 박주연
-- **Frontend 개발 및 CI/CD 인프라 개발**: AI운용혁신팀 신민준
+- **프로젝트 총괄 및 개발PM**: 네트워크운용혁신담당 AI운용혁신팀 이성현
+- **UI/UX 기획, 웹 퍼블리싱 및 Frontend 개발**: 네트워크운용혁신담당 AI운용혁신팀 박주연
+- **Frontend 개발 및 CI/CD 인프라 개발**: 네트워크운용혁신담당 AI운용혁신팀 신민준
+- **UI/UX 기획**: X-Design Center X-Strategy팀 유주원
+- **UI/UX 디자인**: X-Design Center X-Design팀 송다연
 
 ## 기술 스택
 
@@ -29,37 +31,37 @@ Vue 3, TypeScript, Vite 기반의 모던 웹 애플리케이션 프론트엔드 
 ### 필수 조건
 
 - Node.js 18.0.0 이상
-- npm 9.0.0 이상
+- Yarn 1.22.0 이상
 
 ### 설치
 
 ```bash
 # 의존성 설치
-npm install
+yarn
 ```
 
 ### 개발 서버 실행
 
 ```bash
 # 개발 서버 실행 (http://localhost:5173/)
-npm run dev
+yarn dev
 ```
 
 ### 스토리북 실행
 
 ```bash
 # 스토리북 실행 (http://localhost:6006/)
-npm run storybook
+yarn storybook
 ```
 
 ### 빌드
 
 ```bash
 # 프로덕션용 빌드
-npm run build
+yarn build
 
 # Storybook 빌드
-npm run build-storybook
+yarn build-storybook
 ```
 
 ## 프로젝트 구조
@@ -107,7 +109,7 @@ src/
 
 이 프로젝트는 GitHub Actions를 사용하여 Storybook을 GitHub Pages에 자동으로 배포합니다:
 
-- **트리거**: main 브랜치에 푸시가 발생할 때
+- **트리거**: dev 브랜치에 푸시가 발생할 때
 - **워크플로우 파일**: `.github/workflows/deploy-storybook.yml`
 - **배포 URL**: [https://urban-guacamole-2n4qprz.pages.github.io/](https://urban-guacamole-2n4qprz.pages.github.io/)
 
