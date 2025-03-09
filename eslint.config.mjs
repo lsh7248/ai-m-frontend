@@ -3,7 +3,6 @@ import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import pluginVue from 'eslint-plugin-vue';
 import prettier from 'eslint-plugin-prettier';
-import vueConfigTypescript from '@vue/eslint-config-typescript';
 import vueConfigPrettier from '@vue/eslint-config-prettier';
 
 /** @type {import('eslint').Linter.Config[]} */
@@ -47,26 +46,13 @@ export default [
       parser: pluginVue.parser,
       parserOptions: {
         parser: tseslint.parser,
+        extraFileExtensions: ['.vue'],
       },
     },
   },
   {
     rules: {
-      ...vueConfigTypescript.rules,
       ...vueConfigPrettier.rules,
-      'prettier/prettier': [
-        'warn',
-        {
-          singleQuote: true,
-          semi: true,
-          tabWidth: 2,
-          trailingComma: 'all',
-          printWidth: 100,
-          bracketSpacing: true,
-          endOfLine: 'auto',
-          arrowParens: 'always',
-        },
-      ],
       'vue/multi-word-component-names': 'off',
       'vue/component-definition-name-casing': ['error', 'PascalCase'],
       'vue/html-self-closing': [
@@ -81,6 +67,7 @@ export default [
           math: 'always',
         },
       ],
+      'vue/require-default-prop': 'off',
     },
   },
   {
@@ -96,7 +83,7 @@ export default [
       '.github',
     ],
   },
-  // prettier
+  // prettier - 여기서 한 번만 정의
   {
     plugins: {
       prettier: prettier,
