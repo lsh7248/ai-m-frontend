@@ -12,23 +12,23 @@ const meta = {
   tags: ['autodocs'],
   // 컴포넌트 인자 타입 설정
   argTypes: {
-    variant: { 
-      control: 'select', 
+    variant: {
+      control: 'select',
       options: ['primary', 'secondary', 'outline', 'text'],
-      description: '버튼의 스타일 변형'
+      description: '버튼의 스타일 변형',
     },
-    size: { 
-      control: 'select', 
+    size: {
+      control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: '버튼의 크기'
+      description: '버튼의 크기',
     },
-    disabled: { 
+    disabled: {
       control: 'boolean',
-      description: '버튼의 비활성화 상태'
+      description: '버튼의 비활성화 상태',
     },
-    fullWidth: { 
+    fullWidth: {
       control: 'boolean',
-      description: '버튼의 전체 너비 적용 여부'
+      description: '버튼의 전체 너비 적용 여부',
     },
   },
   // 기본 인자 설정
@@ -44,7 +44,7 @@ const meta = {
   parameters: {
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/file/example/button-component',
+      url: 'https://www.figma.com/design/XDJtc47gxopmg3ve3b2CxY/Button-Components-(Community)?node-id=201-4823&t=A0QBqaCqz0bx5tXA-4',
     },
   },
 } satisfies Meta<typeof Button>;
@@ -172,4 +172,4 @@ export const ClickEvent: Story = {
     // 클릭 이벤트가 발생했는지 확인
     await expect(args.onClick).toHaveBeenCalled();
   },
-}; 
+};
