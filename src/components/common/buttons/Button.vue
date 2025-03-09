@@ -9,30 +9,30 @@ defineProps<{
    * 버튼의 스타일 변형
    * @default 'primary'
    */
-  variant?: 'primary' | 'secondary' | 'outline' | 'text'
+  variant?: 'primary' | 'secondary' | 'outline' | 'text';
   /**
    * 버튼의 크기
    * @default 'md'
    */
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg';
   /**
    * 버튼의 비활성화 상태
    * @default false
    */
-  disabled?: boolean
+  disabled?: boolean;
   /**
    * 버튼의 전체 너비 적용 여부
    * @default false
    */
-  fullWidth?: boolean
-}>()
+  fullWidth?: boolean;
+}>();
 
 /**
  * 버튼 클릭 이벤트
  */
 const emits = defineEmits<{
-  (e: 'click', event: MouseEvent): void
-}>()
+  (e: 'click', event: MouseEvent): void;
+}>();
 </script>
 
 <template>
@@ -49,11 +49,11 @@ const emits = defineEmits<{
         'px-6 py-3 text-lg': size === 'lg',
         'opacity-50 cursor-not-allowed': disabled,
         'w-full': fullWidth,
-      }
+      },
     ]"
     :disabled="disabled"
     @click="emits('click', $event)"
   >
-    <slot></slot>
+    <slot />
   </button>
-</template> 
+</template>

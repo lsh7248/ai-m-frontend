@@ -35,10 +35,10 @@ export const Primary: Story = {
   parameters: {
     // figma 연동
     design: {
-        type: 'figma',
-        url: 'https://www.figma.com/design/3wSExLxUevpZjPh8zGQ4aD/Vuetify-for-Figma---Community-(Community)?node-id=144-1805&t=IYNmsqzGGebFW02x-4',
+      type: 'figma',
+      url: 'https://www.figma.com/design/3wSExLxUevpZjPh8zGQ4aD/Vuetify-for-Figma---Community-(Community)?node-id=144-1805&t=IYNmsqzGGebFW02x-4',
     },
-},
+  },
 };
 
 export const Secondary: Story = {
