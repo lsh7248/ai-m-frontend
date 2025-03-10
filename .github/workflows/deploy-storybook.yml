@@ -34,6 +34,8 @@ jobs:
 
       - name: Build Storybook
         run: yarn build-storybook
+        env:
+          STORYBOOK_FIGMA_ACCESS_TOKEN: ${{ secrets.STORYBOOK_FIGMA_ACCESS_TOKEN }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -43,8 +43,8 @@ const meta = {
   // Figma 디자인 연동 (예시 URL, 실제 URL로 변경 필요)
   parameters: {
     design: {
-      type: 'figma',
-      url: 'https://www.figma.com/design/XDJtc47gxopmg3ve3b2CxY/Button-Components-(Community)?node-id=201-4823&t=A0QBqaCqz0bx5tXA-4',
+      type: 'figspec',
+      url: 'https://www.figma.com/design/0KvNZkQMMMQgcsm8KXuNP1/%5B%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%5D-E2E-AI-%ED%99%94%EB%A9%B4-Flow?node-id=658-6450&m=dev',
     },
   },
 } satisfies Meta<typeof Button>;
