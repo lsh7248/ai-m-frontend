@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="issue-card rounded-lg border p-4 shadow-sm hover:shadow transition-shadow duration-200"
-  >
+  <div class="w-full rounded-lg border p-4 shadow-sm hover:shadow transition-shadow duration-200">
     <div class="flex justify-between items-start mb-2">
       <div class="flex items-center gap-2">
         <span class="text-xs px-2 py-1 rounded-full font-medium" :class="statusClass">
@@ -105,24 +103,3 @@ const formatDate = (date: Date | string) => {
   });
 };
 </script>
-
-<style scoped>
-.issue-card {
-  width: 100%;
-  max-width: 100%;
-}
-
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-</style>
