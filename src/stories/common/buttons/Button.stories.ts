@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import Button from '../../../components/common/buttons/Button.vue';
 
 // 버튼 컴포넌트에 대한 메타데이터 설정
-const meta = {
+const meta: Meta<typeof Button> = {
   title: 'Common/Buttons/Button',
   component: Button,
   // 자동 문서화 태그 추가
