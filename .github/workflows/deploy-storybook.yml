@@ -3,7 +3,7 @@ name: Deploy Storybook to GitHub Pages
 on:
   push:
     branches:
-      - "dev"  # dev 브랜치에 직접 푸시되거나 PR이 병합될 때 실행
+      - 'dev' # dev 브랜치에 직접 푸시되거나 PR이 병합될 때 실행
 
 permissions:
   contents: read
@@ -17,29 +17,31 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-      
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-      
-    - name: Install dependencies
-      run: npm install
-      
-    - name: Build Storybook
-      run: npm run build-storybook
-      
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: 'storybook-static'
-        
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4 
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build Storybook
+        run: yarn build-storybook
+        env:
+          STORYBOOK_FIGMA_ACCESS_TOKEN: ${{ secrets.STORYBOOK_FIGMA_ACCESS_TOKEN }}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'storybook-static'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,6 +1,7 @@
 # Storybook 활용 가이드
 
 ## 목차
+
 1. Storybook 기본 활용법
 2. 컴포넌트 스토리 작성 예시 (최신 8.6 버전)
 3. Figma 디자인과 스토리북 연동
@@ -101,7 +102,7 @@ args: {
 
 Storybook의 addon-designs를 사용하여 컴포넌트와 Figma 디자인을 연동하는 방법:
 
-```typescript
+````typescript
 // Button.stories.ts에 Figma 디자인 연동
 import type { Meta, StoryObj } from '@storybook/vue3';
 import Button from './Button.vue';
@@ -132,6 +133,41 @@ export const Primary: Story = {
     },
   },
 };
+
+### FigSpec 타입으로 더 자세한 디자인 정보 보기
+
+Storybook에서는 `figma` 타입 외에도 `figspec` 타입을 사용하여 더 상세한 디자인 정보를 볼 수 있습니다. FigSpec은 디자인 스펙을 더 자세히 보여주며, 컴포넌트의 정확한 치수, 간격, 색상 값 등을 확인할 수 있습니다.
+
+```typescript
+// FigSpec 타입 사용 예시
+parameters: {
+  design: {
+    type: 'figspec',
+    url: 'https://www.figma.com/design/0KvNZkQMMMQgcsm8KXuNP1/%5B%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%5D-E2E-AI-%ED%99%94%EB%A9%B4-Flow?node-id=658-6450&m=dev',
+  },
+}
+````
+
+### Figma Personal Access Token(PAT) 설정하기
+
+FigSpec 타입을 사용하기 위해서는 Figma의 Personal Access Token(PAT)이 필요합니다. 아래 단계를 따라 설정하세요:
+
+#### 1. Figma PAT 생성하기
+
+1. Figma 웹사이트에서 왼쪽 상단의 계정 메뉴 클릭 → **설정(Settings)** 선택
+2. **보안(Security)** 탭 선택
+3. **Personal access tokens** 섹션으로 스크롤하여 **Generate new token** 클릭
+4. 토큰 이름 입력(예: "Storybook Integration")하고 Enter 누르기
+5. 생성된 토큰 즉시 복사 (⚠️ 주의: 토큰은 생성 직후에만 확인 가능)
+
+#### 2. 로컬 환경에 Figma Token 설정하기
+
+**.env 파일 생성 방법:**
+
+프로젝트 루트 디렉토리에 `.env` 파일을 생성하고 다음 변수를 추가합니다:
+
+```
+STORYBOOK_FIGMA_ACCESS_TOKEN=your_figma_token_here
 ```
 
 ## Storybook 8.6 설정 및 사용법
@@ -150,21 +186,21 @@ npm install -D @storybook/addon-designs --legacy-peer-deps
 `.storybook/main.ts` 파일에 다음과 같이 설정:
 
 ```typescript
-import type { StorybookConfig } from "@storybook/vue3-vite";
+import type { StorybookConfig } from '@storybook/vue3-vite';
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
-    "@storybook/addon-essentials",
-    "@storybook/addon-onboarding",
-    "@storybook/addon-designs", // Figma 디자인 연동 애드온
+    '@storybook/addon-essentials',
+    '@storybook/addon-onboarding',
+    '@storybook/addon-designs', // Figma 디자인 연동 애드온
   ],
   framework: {
-    name: "@storybook/vue3-vite",
+    name: '@storybook/vue3-vite',
     options: {},
   },
   docs: {
-    autodocs: "tag",
+    autodocs: 'tag',
   },
 };
 
@@ -189,8 +225,8 @@ Storybook에서 Tailwind CSS를 사용하기 위해서는 `.storybook/preview.ts
 
 ```typescript
 // .storybook/preview.ts
-import type { Preview } from '@storybook/vue3'
-import '../src/style.css' // Tailwind CSS 스타일 파일 경로
+import type { Preview } from '@storybook/vue3';
+import '../src/style.css'; // Tailwind CSS 스타일 파일 경로
 
 const preview: Preview = {
   parameters: {
@@ -220,9 +256,9 @@ npm install -D @storybook/addon-themes
 
 ```typescript
 // .storybook/preview.ts
-import type { Preview } from '@storybook/vue3'
+import type { Preview } from '@storybook/vue3';
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
-import '../src/style.css'
+import '../src/style.css';
 
 const preview: Preview = {
   parameters: {
@@ -249,21 +285,21 @@ Tailwind CSS v4에서는 CSS-first 접근 방식을 사용하여 테마를 설�
 
 ```css
 /* src/style.css */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   /* 색상 */
   --color-primary: oklch(0.6 0.2 240);
   --color-secondary: oklch(0.9 0.03 240);
-  
+
   /* 폰트 */
-  --font-sans: "Inter", sans-serif;
-  --font-display: "Satoshi", "sans-serif";
-  
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Satoshi', 'sans-serif';
+
   /* 타이포그래피 */
   --text-heading-1: 2.5rem;
   --text-heading-1--line-height: 3rem;
-  
+
   /* 간격 */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
@@ -348,7 +384,7 @@ render: (args: any) => ({
     return { args };
   },
   template: '<my-component :prop1="args.prop1" :prop2="args.prop2" />',
-})
+});
 ```
 
 ## 페이지 컴포넌트 스토리 작성 및 테스트
@@ -401,6 +437,7 @@ export const LoggedIn: Story = {
 ### 배포 URL 및 접근 방법
 
 현재 프로젝트의 Storybook은 다음 URL에서 확인할 수 있습니다:
+
 - **배포 URL**: [https://urban-guacamole-2n4qprz.pages.github.io/](https://urban-guacamole-2n4qprz.pages.github.io/)
 
 ### 배포 프로세스
@@ -429,37 +466,38 @@ Storybook 8.6에서는 `play` 함수를 사용하여 사용자 인터랙션을 �
 ```typescript
 play: async ({ canvasElement, step }) => {
   const canvas = within(canvasElement);
-  
+
   // step 함수를 사용하여 테스트 단계 구분
   await step('버튼 클릭', async () => {
     const button = canvas.getByRole('button', { name: /Click me/i });
     await userEvent.click(button);
   });
-  
+
   // 상태 변화 확인
   await step('상태 확인', async () => {
     const result = canvas.getByText('Clicked!');
     await expect(result).toBeInTheDocument();
   });
-}
+};
 ```
 
 // 자동화된 인터랙션 테스트 예시
 export const LoggedInWithTest: Story = {
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);
-    
+play: async ({ canvasElement, step }) => {
+const canvas = within(canvasElement);
+
     // 단계별 테스트 실행
     await step('로그인 버튼 클릭', async () => {
       const loginButton = canvas.getByRole('button', { name: /Log in/i });
       await userEvent.click(loginButton);
     });
-    
+
     await step('로그인 상태 확인', async () => {
       const logoutButton = canvas.getByRole('button', { name: /Log out/i });
       await expect(logoutButton).toBeInTheDocument();
     });
-  },
+
+},
 };
 
 ## 다크 모드 지원
@@ -468,7 +506,7 @@ export const LoggedInWithTest: Story = {
 
 ```typescript
 // .storybook/preview.ts
-import type { Preview } from "@storybook/vue3";
+import type { Preview } from '@storybook/vue3';
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
 import '../src/style.css';
 
@@ -531,22 +569,20 @@ export const FormSubmission: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // 폼 입력
     const nameInput = canvas.getByLabelText('Name');
     await userEvent.type(nameInput, 'John Doe');
-    
+
     // 제출 버튼 클릭
     const submitButton = canvas.getByRole('button', { name: /Submit/i });
     await userEvent.click(submitButton);
-    
+
     // onSubmit 함수가 호출되었는지 확인
     await expect(onSubmit).toHaveBeenCalled();
-    
+
     // 전달된 인자 확인
-    await expect(onSubmit).toHaveBeenCalledWith(
-      expect.objectContaining({ name: 'John Doe' })
-    );
+    await expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({ name: 'John Doe' }));
   },
 };
 ```

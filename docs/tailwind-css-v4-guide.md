@@ -1,14 +1,16 @@
 # Tailwind CSS v4 설정 가이드
 
 ## 목차
+
 1. [소개](#소개)
 2. [주요 변경 사항](#주요-변경-사항)
 3. [설치 및 설정](#설치-및-설정)
 4. [CSS-first 테마 설정](#css-first-테마-설정)
 5. [DaisyUI 5.0 통합](#daisyui-5.0-통합)
 6. [Figma 디자인 시스템 통합](#figma-디자인-시스템-통합)
-7. [고급 기능](#고급-기능)
-8. [문제 해결](#문제-해결)
+7. [Vue 컴포넌트에 Tailwind CSS 적용](#vue-컴포넌트에-tailwind-css-적용)
+8. [고급 기능](#고급-기능)
+9. [문제 해결](#문제-해결)
 
 ## 소개
 
@@ -39,20 +41,20 @@ npm install -D tailwindcss @tailwindcss/vite
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [vue(), tailwindcss()],
-})
+});
 ```
 
 ### 3. CSS 파일에 Tailwind 임포트
 
 ```css
 /* src/style.css */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* 기존 스타일 */
 ```
@@ -65,30 +67,30 @@ Tailwind CSS v4에서는 CSS에서 직접 테마를 구성하는 것이 권장�
 
 ```css
 /* src/style.css */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   /* 색상 */
   --color-primary: oklch(0.6 0.2 240);
   --color-secondary: oklch(0.9 0.03 240);
   --color-accent: oklch(0.8 0.2 30);
-  
+
   /* 폰트 */
-  --font-sans: "Inter", sans-serif;
-  --font-display: "Satoshi", "sans-serif";
-  --font-mono: "IBM Plex Mono", monospace;
-  
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Satoshi', 'sans-serif';
+  --font-mono: 'IBM Plex Mono', monospace;
+
   /* 타이포그래피 */
   --text-tiny: 0.625rem;
   --text-tiny--line-height: 1.5rem;
-  
+
   /* 간격 */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
-  
+
   /* 브레이크포인트 */
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
@@ -96,7 +98,7 @@ Tailwind CSS v4에서는 CSS에서 직접 테마를 구성하는 것이 권장�
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
   --breakpoint-3xl: 1920px;
-  
+
   /* 애니메이션 */
   --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
   --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
@@ -117,11 +119,13 @@ Tailwind CSS v4에서는 CSS에서 직접 테마를 구성하는 것이 권장�
 이 방식을 사용하면 테마 값을 CSS 변수로 직접 접근할 수 있어 다음과 같은 이점이 있습니다:
 
 1. **임의 값에서 테마 변수 직접 사용**:
+
    ```html
    <div class="p-[var(--spacing-sm)] text-[var(--color-primary)]">...</div>
    ```
 
 2. **JavaScript에서 테마 값 접근**:
+
    ```javascript
    element.style.marginTop = 'var(--spacing-sm)';
    ```
@@ -130,9 +134,9 @@ Tailwind CSS v4에서는 CSS에서 직접 테마를 구성하는 것이 권장�
    ```jsx
    // Framer Motion 예시
    <motion.div
-     initial={{ y: "var(--spacing-md)" }}
+     initial={{ y: 'var(--spacing-md)' }}
      animate={{ y: 0 }}
-     exit={{ y: "var(--spacing-md)" }}
+     exit={{ y: 'var(--spacing-md)' }}
    >
      {children}
    </motion.div>
@@ -146,10 +150,10 @@ Tailwind CSS v4에서는 CSS에서 직접 테마를 구성하는 것이 권장�
 @theme {
   /* 기본 폰트 패밀리 유틸리티를 모두 제거 */
   --font-*: initial;
-  
+
   /* 새로운 폰트 패밀리 유틸리티만 정의 */
-  --font-display: "Satoshi", "sans-serif";
-  --font-body: "Inter", sans-serif;
+  --font-display: 'Satoshi', 'sans-serif';
+  --font-body: 'Inter', sans-serif;
 }
 ```
 
@@ -158,7 +162,7 @@ Tailwind CSS v4에서는 CSS에서 직접 테마를 구성하는 것이 권장�
 ```css
 @theme {
   --*: initial;
-  
+
   /* 이제 모든 테마 값을 직접 정의해야 합니다 */
 }
 ```
@@ -186,11 +190,13 @@ DaisyUI는 Tailwind CSS의 컴포넌트 라이브러리로, 미리 디자인된 
 ### Tailwind CSS v4와 DaisyUI v5.0의 역할
 
 #### Tailwind CSS v4의 역할
+
 - **저수준 유틸리티 클래스 제공**: 개별 CSS 속성을 제어하는 클래스 제공 (예: `p-4`, `text-lg`, `flex`)
 - **디자인 시스템 기반 구축**: CSS 변수를 통한 테마 설정 및 디자인 토큰 관리
 - **레이아웃 및 간격 제어**: 그리드, 플렉스박스, 마진, 패딩 등의 레이아웃 관련 유틸리티 제공
 
 #### DaisyUI v5.0의 보조적 역할
+
 - **개발 생산성 향상**: 반복적인 UI 패턴을 빠르게 구현할 수 있는 컴포넌트 클래스 제공
 - **일관된 상호작용 패턴**: 모달, 드롭다운 등 상호작용이 필요한 컴포넌트의 기본 구조 제공
 - **테마 시스템**: 다크 모드 등 테마 전환 기능 지원
@@ -207,7 +213,7 @@ Tailwind CSS v4의 CSS-first 접근 방식에 맞춰 DaisyUI도 CSS에서 직접
 
 ```css
 /* src/style.css */
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "daisyui";
 
 /* 기존 스타일 */
@@ -217,9 +223,11 @@ Tailwind CSS v4의 CSS-first 접근 방식에 맞춰 DaisyUI도 CSS에서 직접
 
 ```css
 /* src/style.css */
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark;
+  themes:
+    light --default,
+    dark --prefersdark;
 }
 
 /* 기존 스타일 */
@@ -247,7 +255,9 @@ Figma 디자인을 충실히 구현하는 경우:
 
 ```html
 <!-- Figma 디자인에 따른 Tailwind CSS 구현 -->
-<button class="bg-primary-500 text-white px-4 py-2 rounded-md hover:bg-primary-600 transition-colors">
+<button
+  class="bg-primary-500 text-white px-4 py-2 rounded-md hover:bg-primary-600 transition-colors"
+>
   버튼 텍스트
 </button>
 ```
@@ -355,19 +365,19 @@ Figma의 텍스트 스타일을 CSS 변수로 정의합니다:
 ```css
 @theme {
   /* Figma 텍스트 스타일 */
-  --font-display: "Pretendard", sans-serif;
-  --font-body: "Pretendard", sans-serif;
-  
+  --font-display: 'Pretendard', sans-serif;
+  --font-body: 'Pretendard', sans-serif;
+
   --text-heading-1: 2.5rem;
   --text-heading-1--line-height: 3rem;
   --text-heading-1--font-weight: 700;
   --text-heading-1--letter-spacing: -0.025em;
-  
+
   --text-heading-2: 2rem;
   --text-heading-2--line-height: 2.5rem;
   --text-heading-2--font-weight: 700;
   --text-heading-2--letter-spacing: -0.025em;
-  
+
   /* 추가 텍스트 스타일 */
 }
 ```
@@ -424,6 +434,322 @@ Figma 디자인을 코드로 구현할 때 다음 전략을 사용합니다:
 </div>
 ```
 
+## Vue 컴포넌트에 Tailwind CSS 적용
+
+Tailwind CSS를 Vue 3 컴포넌트에 효과적으로 적용하기 위한 패턴과 모범 사례를 알아보겠습니다.
+
+### 1. 스타일 관리 구조
+
+Tailwind CSS 프로젝트에서는 다음과 같은 스타일 관리 구조를 권장합니다:
+
+- **전역 스타일 (style.css)**: 테마 변수, 기본 스타일 등 전역적으로 적용되는 스타일
+- **컴포넌트 내 스타일링**: 각 컴포넌트에 직접 Tailwind 유틸리티 클래스 적용
+- **레이아웃 컴포넌트**: 페이지 구조를 담당하는 컴포넌트에 레이아웃 관련 클래스 적용
+
+#### 전역 스타일 (style.css) 구조
+
+```css
+@import 'tailwindcss';
+@plugin "daisyui";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* 테마 변수 정의 */
+}
+
+@layer base {
+  /* 기본 스타일 정의 */
+  :root {
+    @apply antialiased text-gray-900;
+    font-family: var(--font-sans);
+  }
+
+  html,
+  body,
+  #app {
+    @apply bg-white min-h-screen w-full;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-bold;
+  }
+
+  a {
+    @apply text-primary-500 hover:text-primary-700 transition-colors;
+  }
+
+  /* 다크 모드 설정 */
+  :where(.dark, .dark *) {
+    @apply text-gray-100 bg-gray-900;
+  }
+}
+```
+
+### 2. Vue 컴포넌트에 Tailwind 클래스 적용
+
+Vue 컴포넌트에서는 `<style>` 태그를 사용하지 않고 템플릿에 직접 Tailwind 클래스를 적용하는 것이 권장됩니다.
+
+#### 기본 컴포넌트 예시
+
+```vue
+<template>
+  <div class="p-4 bg-white rounded-lg shadow-md">
+    <h2 class="text-xl font-bold text-gray-900 mb-2">{{ title }}</h2>
+    <p class="text-gray-600">{{ content }}</p>
+    <div class="mt-4 flex justify-end">
+      <button
+        class="bg-primary-500 text-white px-4 py-2 rounded-md hover:bg-primary-600 transition-colors"
+      >
+        {{ buttonText }}
+      </button>
+    </div>
+  </div>
+</template>
+
+<script setup>
+defineProps({
+  title: String,
+  content: String,
+  buttonText: {
+    type: String,
+    default: '확인',
+  },
+});
+</script>
+```
+
+#### 반응형 디자인 적용
+
+Tailwind CSS의 반응형 접두사를 사용하여 다양한 화면 크기에 맞게 UI를 조정할 수 있습니다:
+
+```vue
+<template>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+    <div v-for="item in items" :key="item.id" class="bg-white p-4 rounded-lg shadow-md">
+      <h3 class="text-lg font-bold mb-2">{{ item.title }}</h3>
+      <p class="text-sm text-gray-600 mb-4">{{ item.description }}</p>
+      <button class="w-full sm:w-auto px-4 py-2 bg-primary-500 text-white rounded-md">
+        상세 보기
+      </button>
+    </div>
+  </div>
+</template>
+```
+
+### 3. 컴포넌트 계층 구조와 스타일 관리
+
+효과적인 Tailwind CSS 기반 애플리케이션을 위한 컴포넌트 계층 구조:
+
+#### 레이아웃 컴포넌트
+
+```vue
+<!-- MainLayout.vue -->
+<template>
+  <div class="flex flex-col min-h-screen">
+    <AppHeader class="sticky top-0 z-50" />
+    <main class="flex-grow py-8 px-4">
+      <div class="max-w-7xl mx-auto">
+        <slot></slot>
+        <!-- 페이지 내용 -->
+      </div>
+    </main>
+    <AppFooter />
+  </div>
+</template>
+```
+
+#### UI 컴포넌트
+
+```vue
+<!-- Button.vue -->
+<template>
+  <button
+    :class="[
+      'px-4 py-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2',
+      variantClasses,
+      sizeClasses,
+      disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+    ]"
+    :disabled="disabled"
+    @click="$emit('click')"
+  >
+    <slot></slot>
+  </button>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  variant: {
+    type: String,
+    default: 'primary',
+    validator: (value) => ['primary', 'secondary', 'outline', 'text'].includes(value),
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['sm', 'md', 'lg'].includes(value),
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const variantClasses = computed(() => {
+  const classes = {
+    primary: 'bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500',
+    secondary: 'bg-secondary-500 text-white hover:bg-secondary-600 focus:ring-secondary-500',
+    outline:
+      'bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-50 focus:ring-primary-500',
+    text: 'bg-transparent text-primary-500 hover:bg-primary-50 focus:ring-primary-500',
+  };
+  return classes[props.variant];
+});
+
+const sizeClasses = computed(() => {
+  const classes = {
+    sm: 'text-sm',
+    md: 'text-base',
+    lg: 'text-lg',
+  };
+  return classes[props.size];
+});
+</script>
+```
+
+### 4. 클래스 조직화 패턴
+
+Tailwind 클래스를 조직화하는 효과적인 방법:
+
+#### 클래스 그룹화
+
+관련 있는 스타일을 함께 그룹화하여 가독성을 높입니다:
+
+```html
+<div
+  class="
+    /* 레이아웃 */ 
+    flex flex-col p-4 m-2
+    /* 스타일링 */
+    bg-white rounded-lg shadow-md
+    /* 상태 및 반응형 */
+    hover:shadow-lg md:flex-row
+  "
+>
+  <!-- 내용 -->
+</div>
+```
+
+#### 조건부 클래스 적용
+
+Vue의 `class` 바인딩을 활용하여 조건부로 Tailwind 클래스를 적용할 수 있습니다:
+
+```vue
+<div
+  :class="[
+    'p-4 rounded-lg',
+    isActive ? 'bg-primary-100 text-primary-900' : 'bg-white text-gray-900',
+    size === 'lg' ? 'text-lg' : 'text-base',
+  ]"
+>
+  {{ content }}
+</div>
+```
+
+### 5. 일반 CSS 사용 최소화
+
+Tailwind CSS 프로젝트에서는 일반 CSS 사용을 최소화하고 Tailwind 유틸리티 클래스를 활용하는 것이 권장됩니다:
+
+#### 권장하지 않는 방식
+
+```vue
+<template>
+  <div class="custom-card">
+    <h2>{{ title }}</h2>
+    <p>{{ content }}</p>
+  </div>
+</template>
+
+<style scoped>
+.custom-card {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: #666;
+}
+</style>
+```
+
+#### 권장하는 방식
+
+```vue
+<template>
+  <div class="p-4 bg-white rounded-lg shadow-sm">
+    <h2 class="text-xl font-bold mb-2">{{ title }}</h2>
+    <p class="text-gray-600">{{ content }}</p>
+  </div>
+</template>
+```
+
+### 6. 복잡한 컴포넌트의 스타일링
+
+복잡한 컴포넌트의 경우에도 Tailwind 클래스만으로 효과적으로 스타일링할 수 있습니다:
+
+```vue
+<template>
+  <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <!-- 헤더 -->
+    <div class="bg-primary-50 px-4 py-3 border-b border-primary-100">
+      <h3 class="text-lg font-semibold text-primary-900">{{ title }}</h3>
+    </div>
+
+    <!-- 본문 -->
+    <div class="p-4">
+      <p class="text-gray-600">{{ content }}</p>
+
+      <!-- 데이터 목록 -->
+      <ul class="mt-4 space-y-2">
+        <li v-for="item in items" :key="item.id" class="flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-primary-500"></div>
+          <span>{{ item.name }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="bg-gray-50 px-4 py-3 border-t border-gray-100 flex justify-end gap-2">
+      <button
+        class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors"
+      >
+        취소
+      </button>
+      <button
+        class="px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors"
+      >
+        확인
+      </button>
+    </div>
+  </div>
+</template>
+```
+
 ## 고급 기능
 
 ### 1. 컨테이너 쿼리
@@ -443,9 +769,7 @@ Tailwind CSS v4에서는 컨테이너 쿼리를 지원합니다:
 3D 공간에서 요소를 변환할 수 있습니다:
 
 ```html
-<div class="rotate-x-45 rotate-y-45 perspective-500">
-  3D 변환이 적용된 요소
-</div>
+<div class="rotate-x-45 rotate-y-45 perspective-500">3D 변환이 적용된 요소</div>
 ```
 
 ### 3. 그라데이션 API
@@ -468,14 +792,12 @@ JavaScript 없이 진입 및 종료 전환을 만들 수 있는 새로운 변형
 </div>
 ```
 
-### 5. not-* 변형
+### 5. not-\* 변형
 
 다른 변형, 사용자 정의 선택기 또는 미디어/기능 쿼리와 일치하지 않을 때만 요소의 스타일을 지정할 수 있습니다:
 
 ```html
-<div class="not-dark:bg-white dark:bg-gray-800">
-  다크 모드가 아닐 때만 흰색 배경이 적용됩니다.
-</div>
+<div class="not-dark:bg-white dark:bg-gray-800">다크 모드가 아닐 때만 흰색 배경이 적용됩니다.</div>
 ```
 
 ## 문제 해결
@@ -501,4 +823,4 @@ JavaScript 없이 진입 및 종료 전환을 만들 수 있는 새로운 변형
 
 - 개발 중에는 `@apply` 사용을 최소화하세요.
 - 불필요한 CSS 변수 정의를 피하세요.
-- 큰 프로젝트의 경우 코드 분할을 고려하세요. 
+- 큰 프로젝트의 경우 코드 분할을 고려하세요.
